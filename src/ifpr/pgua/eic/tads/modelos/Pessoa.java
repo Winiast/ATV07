@@ -6,9 +6,7 @@ public class Pessoa {
     private String cpf;
     private int idade;
     private double salario;
-    //private ContaCorrente contaCorrente;
-
-
+    // private ContaCorrente contaCorrente;
 
     public Pessoa(String nome, String cpf, int idade, double salario) {
         this.nome = nome;
@@ -18,9 +16,11 @@ public class Pessoa {
     }
 
     public Pessoa(String nome, String cpf, int idade) {
-        /*this.nome = nome;
-        this.cpf = cpf;
-        this.idade = idade;*/
+        /*
+         * this.nome = nome;
+         * this.cpf = cpf;
+         * this.idade = idade;
+         */
 
         this(nome, cpf, idade, 0.0);
     }
@@ -32,7 +32,7 @@ public class Pessoa {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getCpf() {
         return cpf;
     }
@@ -49,7 +49,6 @@ public class Pessoa {
         this.idade = idade;
     }
 
-
     public double getSalario() {
         return salario;
     }
@@ -57,22 +56,22 @@ public class Pessoa {
     public void setSalario(double salario) {
         this.salario = salario;
     }
-/*
-    public ContaCorrente getContaCorrente() {
-        return contaCorrente;
-    }
+    /*
+     * public ContaCorrente getContaCorrente() {
+     * return contaCorrente;
+     * }
+     * 
+     * public void setContaCorrente(ContaCorrente contaCorrente) {
+     * this.contaCorrente = contaCorrente;
+     * }
+     */
 
-    public void setContaCorrente(ContaCorrente contaCorrente) {
-        this.contaCorrente = contaCorrente;
-    }*/
+    public String toString() {
+        String str = "";
 
+        str = "Pessoa[nome:" + nome + ", cpf:" + cpf + ", idade:" + idade + ", salario:" + salario + "]";
 
-    public String toString(){
-        String str="";
-
-        str = "Pessoa[nome:"+nome+", cpf:"+cpf+", idade:"+idade+", salario:"+salario+"]";
-        
         return str;
     }
-    
+
 }
