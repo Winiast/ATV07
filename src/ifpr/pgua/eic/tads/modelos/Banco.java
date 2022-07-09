@@ -3,42 +3,55 @@ package ifpr.pgua.eic.tads.modelos;
 import java.util.ArrayList;
 
 public class Banco {
-    
+
     private String nome;
     private String telefone;
     private String cnpj;
-    private ArrayList<Pessoa> pessoas;
+    private ArrayList<PessoaPJ> pessoasPJ;
+    private ArrayList<PessoaPF> pessoasPF;
     private ArrayList<ContaCorrente> contaCorrentes;
-    private int qtdePessoas;
+    private int qtdePessoasPF, qtdePessoasPJ;
     private int qtdeContas;
-  
 
     public Banco(String nome, String telefone, String cnpj) {
         this.nome = nome;
         this.telefone = telefone;
         this.cnpj = cnpj;
-        pessoas = new ArrayList<Pessoa>();
-        qtdePessoas = 0;
+        pessoasPJ = new ArrayList<PessoaPJ>();
+        pessoasPF = new ArrayList<PessoaPF>();
+        qtdePessoasPF = 0;
+        qtdePessoasPJ = 0;
         contaCorrentes = new ArrayList<>();
         qtdeContas = 0;
 
     }
 
-
-    public Pessoa buscarPessoa(String documento){
-        for(int i=0;i<pessoas.size();i++){
-            if(pessoas.get(i).getCpf().equals(documento)){
-                return pessoas.get(i);
+    // PF
+    public PessoaPF buscarPessoaPF(String documento) {
+        for (int i = 0; i < pessoasPF.size(); i++) {
+            if (pessoasPF.get(i).getCpf().equals(documento)) {
+                return pessoasPF.get(i);
             }
         }
 
         return null;
     }
 
-    public ContaCorrente buscarConta(int numero, int agencia){
+    // PJ
+    public PessoaPJ buscarPessoaPJ(String documento) {
+        for (int i = 0; i < pessoasPJ.size(); i++) {
+            if (pessoasPJ.get(i).getCpnj().equals(documento)) {
+                return pessoasPJ.get(i);
+            }
+        }
 
-        for(ContaCorrente conta:contaCorrentes){
-            if(conta.getNumeroDaConta()==numero && conta.getAgencia()==agencia){
+        return null;
+    }
+
+    public ContaCorrente buscarConta(int numero, int agencia) {
+
+        for (ContaCorrente conta : contaCorrentes) {
+            if (conta.getNumeroDaConta() == numero && conta.getAgencia() == agencia) {
                 return conta;
             }
         }
@@ -46,37 +59,57 @@ public class Banco {
         return null;
     }
 
-
-    public boolean cadastrarPessoa(Pessoa pessoa){
-        if(buscarPessoa(pessoa.getCpf())== null){
-            this.pessoas.add(pessoa);
-            qtdePessoas += 1;
+    // PF
+    public boolean cadastrarPessoaPF(PessoaPF pessoaPF) {
+        if (buscarPessoaPF(pessoaPF.getCpf()) == null) {
+            this.pessoasPF.add(pessoaPF);
+            qtdePessoasPF += 1;
             return true;
         }
 
         return false;
-        
+
     }
 
-    public ArrayList<Pessoa> getPessoas(){
-        return pessoas;
+    // PJ
+
+    public boolean cadastrarPessoaPJ(PessoaPJ pessoaPJ) {
+        if (buscarPessoaPJ(pessoaPJ.getCpnj()) == null) {
+            this.pessoasPJ.add(pessoaPJ);
+            qtdePessoasPJ += 1;
+            return true;
+        }
+
+        return false;
+
     }
 
-    public boolean cadastarConta(ContaCorrente conta){
-        if(buscarConta(conta.getNumeroDaConta(), conta.getAgencia())==null){
+    // PF
+    public ArrayList<PessoaPF> getPessoasPF() {
+        return pessoasPF;
+    }
+
+    // PJ
+
+    public ArrayList<PessoaPJ> getPessoasPJ() {
+        return pessoasPJ;
+    }
+
+    public boolean cadastarConta(ContaCorrente conta) {
+        if (buscarConta(conta.getNumeroDaConta(), conta.getAgencia()) == null) {
             this.contaCorrentes.add(conta);
             qtdeContas += 1;
             return true;
         }
 
         return false;
-        
+
     }
 
-    public ArrayList<ContaCorrente> getContaCorrentes(){
+    public ArrayList<ContaCorrente> getContaCorrentes() {
         return contaCorrentes;
     }
- 
+
     public String getNome() {
         return nome;
     }
@@ -100,7 +133,5 @@ public class Banco {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
-
 
 }

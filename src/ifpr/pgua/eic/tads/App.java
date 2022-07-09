@@ -6,6 +6,7 @@ import java.util.Scanner;
 import ifpr.pgua.eic.tads.modelos.Banco;
 import ifpr.pgua.eic.tads.modelos.ContaCorrente;
 import ifpr.pgua.eic.tads.modelos.Pessoa;
+import ifpr.pgua.eic.tads.modelos.PessoaPF;
 
 public class App {
 
@@ -91,15 +92,14 @@ public class App {
                         System.out.println("Digite o salario:");
                         salario = scan.nextDouble();
 
-                        pessoa = new Pessoa(nome, cpf, idade, salario);
-                        
-                        if(banco.cadastrarPessoa(pessoa)){
+                        pessoa = new PessoaPF(nome, idade, cpf, salario);
+
+                        if (banco.cadastrarPessoaPF(pessoa)) {
                             System.out.println("Cadastrada!");
-                        }else{
+                        } else {
                             System.out.println("Erro ao cadastrar. Documento repetido!");
                         }
 
-                        
                         break;
                     case 2:
                         System.out.println("Detalhes da pessoa");
@@ -150,14 +150,12 @@ public class App {
 
                             }
 
-                            if(banco.cadastarConta(conta)){
+                            if (banco.cadastarConta(conta)) {
                                 pessoa.setContaCorrente(conta);
                                 System.out.println("Conta criada!!");
-                            }else{
+                            } else {
                                 System.out.println("Conta não criada!!");
                             }
-
-                            
 
                         } else {
                             System.out.println("Pessoa não encontrada!!!");
