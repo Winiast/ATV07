@@ -10,6 +10,8 @@ public class Banco {
     private ArrayList<PessoaPJ> pessoasPJ;
     private ArrayList<PessoaPF> pessoasPF;
     private ArrayList<ContaCorrente> contaCorrentes;
+    private ArrayList<ContaCorrenteEspecial> contaCorrenteEspecials;
+    private ArrayList<ContaPoupanca> contaPoupancas;
     private int qtdePessoasPF, qtdePessoasPJ;
     private int qtdeContas;
 
@@ -22,6 +24,8 @@ public class Banco {
         qtdePessoasPF = 0;
         qtdePessoasPJ = 0;
         contaCorrentes = new ArrayList<>();
+        contaCorrenteEspecials = new ArrayList<>();
+        contaPoupancas = new ArrayList<>();
         qtdeContas = 0;
 
     }
@@ -108,6 +112,14 @@ public class Banco {
 
     public ArrayList<ContaCorrente> getContaCorrentes() {
         return contaCorrentes;
+    }
+
+    public ArrayList<ContaCorrenteEspecial> getContaCorrentesEspecials() {
+        return contaCorrenteEspecials;
+    }
+
+    public ArrayList<ContaPoupanca> getContaPoupancas() {
+        return contaPoupancas;
     }
 
     public String getNome() {

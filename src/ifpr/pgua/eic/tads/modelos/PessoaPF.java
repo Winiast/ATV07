@@ -9,8 +9,9 @@ public class PessoaPF extends Pessoa {
         this.cpf = cpf;
     }
 
-    public PessoaPF(String nome, String cpf, int idade) {
-        super(nome, cpf, idade);
+    public PessoaPF(String nome, int idade) {
+        super(nome, idade, 0.0);
+        this.cpf = cpf;
     }
 
     public String getCpf() {
