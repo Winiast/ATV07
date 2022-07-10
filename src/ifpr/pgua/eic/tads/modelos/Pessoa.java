@@ -6,6 +6,8 @@ public class Pessoa {
     protected int idade;
     protected double salario;
     private ContaCorrente contaCorrente;
+    private ContaCorrenteEspecial contaCorrenteEspecial;
+    private ContaPoupanca contaPoupanca;
 
     public Pessoa(String nome, int idade, double salario) {
         this.nome = nome;
@@ -48,6 +50,14 @@ public class Pessoa {
 
     public void setContaCorrente(ContaCorrente contaCorrente) {
         this.contaCorrente = contaCorrente;
+    }
+
+    public void setContaCorrenteEspecial(ContaCorrenteEspecial contaCorrenteEspecial) {
+        this.contaCorrenteEspecial = contaCorrenteEspecial;
+    }
+
+    public void setContaPoupanca(ContaPoupanca contapPoupanca) {
+        this.contaPoupanca = contaPoupanca;
     }
 
     public String toString() {

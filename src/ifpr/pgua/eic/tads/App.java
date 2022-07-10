@@ -6,6 +6,7 @@ import java.util.Scanner;
 import ifpr.pgua.eic.tads.modelos.Banco;
 import ifpr.pgua.eic.tads.modelos.ContaCorrente;
 import ifpr.pgua.eic.tads.modelos.ContaCorrenteEspecial;
+import ifpr.pgua.eic.tads.modelos.ContaPoupanca;
 import ifpr.pgua.eic.tads.modelos.Pessoa;
 import ifpr.pgua.eic.tads.modelos.PessoaPF;
 import ifpr.pgua.eic.tads.modelos.PessoaPJ;
@@ -77,8 +78,21 @@ public class App {
 
     }
 
+    public static String menuEscolhaConta() {
+        String str = "";
+        str += "1 - Conta Corrente\n";
+        str += "2 - Conta Especial\n";
+        str += "3 - Conta Poupanca\n";
+        str += "0 - Voltar\n";
+
+        return str;
+
+    }
+
     public static void main(String[] args) throws Exception {
         ContaCorrente conta = null;
+        ContaPoupanca contaPoupanca = null;
+        ContaCorrenteEspecial contaCorrenteEspecial = null;
         Pessoa pessoa = null;
         PessoaPF pessoapf = null;
         PessoaPJ pessoapj = null;
@@ -164,64 +178,163 @@ public class App {
 
                 switch (opcao) {
                     case 1:
-
-                        System.out.println("Digite o documento da pessoa:");
-                        documento = scan.nextLine();
-
-                        pessoapf = banco.buscarPessoaPF(documento);
-
-                        if (pessoa != null) {
-                            System.out.println("Digite o número da conta:");
-                            numeroDaConta = scan.nextInt();
-                            scan.nextLine();
-                            System.out.println("Digite a agência:");
-                            agencia = scan.nextInt();
-                            scan.nextLine();
-                            System.out.println("Digite a senha:");
-                            senha = scan.nextLine();
-
-                            System.out.println("Está ativa (1-sim;0-não)");
-                            opcao = scan.nextInt();
-                            ativa = opcao == 1;
-                            System.out.println("Quer informa o saldo? (1-sim;0-não)");
-                            opcao = scan.nextInt();
-
-                            if (opcao == 1) {
-                                System.out.println("Digite o saldo:");
-                                saldo = scan.nextDouble();
-                                conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa, saldo);
-
-                            } else {
-                                conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa);
-
-                            }
-
-                            if (banco.cadastarConta(conta)) {
-                                pessoa.setContaCorrente(conta);
-                                System.out.println("Conta criada!!");
-                            } else {
-                                System.out.println("Conta não criada!!");
-                            }
-
+                        System.out.println("Escolha o tipo de pessoa que deseja cadastrar uma conta: ");
+                        System.out.println(menuTipoPessoa());
+                        opcaoPessoa = scan.nextInt();
+                        if (opcaoPessoa == 1) {
+                            System.out.println("Pesssoa Juridica ainda nao é permitida!");
                         } else {
-                            System.out.println("Pessoa não encontrada!!!");
+                            System.out.println("Digite o documento da pessoa:");
+                            documento = scan.nextLine();
+                            pessoapf = banco.buscarPessoaPF(documento);
+
+                            System.out.println("Escolha o tipo de conta que deseja criar: ");
+                            System.out.println(menuEscolhaConta());
+                            opcaoConta = scan.nextInt();
+
+                            if (pessoapf != null) {
+                                System.out.println("Digite o número da conta:");
+                                numeroDaConta = scan.nextInt();
+                                scan.nextLine();
+                                System.out.println("Digite a agência:");
+                                agencia = scan.nextInt();
+                                scan.nextLine();
+                                System.out.println("Digite a senha:");
+                                senha = scan.nextLine();
+
+                                System.out.println("Está ativa (1-sim;0-não)");
+                                opcao = scan.nextInt();
+                                ativa = opcao == 1;
+                                System.out.println("Quer informa o saldo? (1-sim;0-não)");
+                                opcao = scan.nextInt();
+
+                                if (opcao == 1) {
+                                    System.out.println("Digite o saldo:");
+                                    saldo = scan.nextDouble();
+                                    switch (opcaoConta) {
+                                        case 1:
+                                            conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa,
+                                                    saldo);
+                                            break;
+                                        case 2:
+                                            contaCorrenteEspecial = new ContaCorrenteEspecial(numeroDaConta, agencia,
+                                                    pessoa, senha,
+                                                    ativa,
+                                                    saldo);
+                                            break;
+                                        case 3:
+                                            contaPoupanca = new ContaPoupanca(numeroDaConta, agencia,
+                                                    pessoa, senha,
+                                                    ativa,
+                                                    saldo);
+                                            break;
+                                    }
+
+                                } else {
+                                    switch (opcaoConta) {
+                                        case 1:
+                                            conta = new ContaCorrente(numeroDaConta, agencia, pessoa, senha, ativa);
+                                            break;
+                                        case 2:
+                                            contaCorrenteEspecial = new ContaCorrenteEspecial(numeroDaConta, agencia,
+                                                    pessoa, senha,
+                                                    ativa);
+                                            break;
+                                        case 3:
+                                            contaPoupanca = new ContaPoupanca(numeroDaConta, agencia,
+                                                    pessoa, senha,
+                                                    ativa);
+                                            break;
+                                    }
+                                }
+
+                                switch (opcaoConta) {
+                                    case 1:
+                                        if (banco.cadastarContaCorrente(conta)) {
+                                            pessoapf.setContaCorrente(conta);
+                                            System.out.println("Conta criada!!");
+                                        } else {
+                                            System.out.println("Conta não criada!!");
+                                        }
+                                        break;
+
+                                    case 2:
+                                        if (banco.cadastarContaCorrenteEspecial(contaCorrenteEspecial)) {
+                                            pessoapf.setContaCorrenteEspecial(contaCorrenteEspecial);
+                                            System.out.println("Conta criada!!");
+                                        } else {
+                                            System.out.println("Conta não criada!!");
+                                        }
+                                        break;
+
+                                    case 3:
+                                        if (banco.cadastarContaPoupanca(contaPoupanca)) {
+                                            pessoapf.setContaPoupanca(contaPoupanca);
+                                            System.out.println("Conta criada!!");
+                                        } else {
+                                            System.out.println("Conta não criada!!");
+                                        }
+                                        break;
+                                }
+
+                            } else {
+                                System.out.println("Pessoa não encontrada!!!");
+                            }
+                            break;
                         }
-                        break;
+
                     case 2:
-                        System.out.println("Depositar!");
-                        if (conta != null) {
-                            System.out.println("Digite um valor:");
-                            valor = scan.nextDouble();
-                            if (conta.depositar(valor)) {
-                                System.out.println("Realizado!");
-                            } else {
-                                System.out.println("Não Realizado! Valor insuficiente!");
-                            }
+                        System.out.println("Escolha o tipo de conta que deseja depositar:");
+                        System.out.println(menuEscolhaConta());
+                        opcaoConta = scan.nextInt();
 
-                        } else {
-                            System.out.println("Não permitido! Crie uma conta!");
+                        System.out.println("Depositar!");
+
+                        switch (opcaoConta) {
+                            case 1:
+                                if (conta != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (conta.depositar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não Realizado! Valor insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
+                            case 2:
+                                if (contaCorrenteEspecial != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (contaCorrenteEspecial.depositar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não Realizado! Valor insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
+
+                            case 3:
+                                if (contaPoupanca != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (contaPoupanca.depositar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não Realizado! Valor insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
                         }
-                        break;
 
                     case 3:
                         System.out.println("Sacar!");

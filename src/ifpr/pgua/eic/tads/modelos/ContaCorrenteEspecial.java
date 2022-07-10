@@ -17,6 +17,10 @@ public class ContaCorrenteEspecial extends Conta {
         super(numeroDaConta, agencia, pessoa, senha, ativa, saldo);
     }
 
+    public ContaCorrenteEspecial(int numeroDaConta, int agencia, Pessoa pessoa, String senha, boolean ativa) {
+        super(numeroDaConta, agencia, pessoa, senha, ativa, 0.0);
+    }
+
     @Override
     public boolean sacar(double valor) {
         if (valor > 0 && valor <= saldo + limite) {

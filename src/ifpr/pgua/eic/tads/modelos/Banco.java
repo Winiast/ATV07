@@ -13,7 +13,7 @@ public class Banco {
     private ArrayList<ContaCorrenteEspecial> contaCorrenteEspecials;
     private ArrayList<ContaPoupanca> contaPoupancas;
     private int qtdePessoasPF, qtdePessoasPJ;
-    private int qtdeContas;
+    private int qtdeContasCorrentes, qtdeContasCorrentesEspeciais, qtdeContasPoupancas;
 
     public Banco(String nome, String telefone, String cnpj) {
         this.nome = nome;
@@ -26,8 +26,9 @@ public class Banco {
         contaCorrentes = new ArrayList<>();
         contaCorrenteEspecials = new ArrayList<>();
         contaPoupancas = new ArrayList<>();
-        qtdeContas = 0;
-
+        qtdeContasCorrentes = 0;
+        qtdeContasCorrentesEspeciais = 0;
+        qtdeContasPoupancas = 0;
     }
 
     // PF
@@ -99,10 +100,32 @@ public class Banco {
         return pessoasPJ;
     }
 
-    public boolean cadastarConta(ContaCorrente conta) {
+    public boolean cadastarContaCorrente(ContaCorrente conta) {
         if (buscarConta(conta.getNumeroDaConta(), conta.getAgencia()) == null) {
             this.contaCorrentes.add(conta);
-            qtdeContas += 1;
+            qtdeContasCorrentes += 1;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean cadastarContaCorrenteEspecial(ContaCorrenteEspecial conta) {
+        if (buscarConta(conta.getNumeroDaConta(), conta.getAgencia()) == null) {
+            this.contaCorrenteEspecials.add(conta);
+            qtdeContasCorrentesEspeciais += 1;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean cadastarContaPoupanca(ContaPoupanca conta) {
+        if (buscarConta(conta.getNumeroDaConta(), conta.getAgencia()) == null) {
+            this.contaPoupancas.add(conta);
+            qtdeContasPoupancas += 1;
             return true;
         }
 

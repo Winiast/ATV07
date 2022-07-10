@@ -24,7 +24,11 @@ public class PessoaPF extends Pessoa {
 
     @Override
     public String toString() {
-        return "PessoaPF []";
+        String str = "";
+
+        str = "PessoaPF[nome:" + nome + ", documento" + cpf + ", idade:" + idade + ", salario:" + salario + "]";
+
+        return str;
     }
 
 }
