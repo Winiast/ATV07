@@ -337,20 +337,57 @@ public class App {
                         }
 
                     case 3:
-                        System.out.println("Sacar!");
-                        if (conta != null) {
-                            System.out.println("Digite um valor:");
-                            valor = scan.nextDouble();
-                            if (conta.sacar(valor)) {
-                                System.out.println("Realizado!");
-                            } else {
-                                System.out.println("Não realizado! Valor inválido ou insuficiente!");
-                            }
+                        System.out.println("Escolha o tipo de conta que deseja sacar:");
+                        System.out.println(menuEscolhaConta());
+                        opcaoConta = scan.nextInt();
 
-                        } else {
-                            System.out.println("Não permitido! Crie uma conta!");
+                        System.out.println("Sacar!");
+
+                        switch (opcaoConta) {
+                            case 1:
+                                if (conta != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (conta.sacar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não realizado! Valor inválido ou insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
+                            case 2:
+                                if (contaCorrenteEspecial != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (contaCorrenteEspecial.sacar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não realizado! Valor inválido ou insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
+                            case 3:
+                                if (contaPoupanca != null) {
+                                    System.out.println("Digite um valor:");
+                                    valor = scan.nextDouble();
+                                    if (contaPoupanca.sacar(valor)) {
+                                        System.out.println("Realizado!");
+                                    } else {
+                                        System.out.println("Não realizado! Valor inválido ou insuficiente!");
+                                    }
+
+                                } else {
+                                    System.out.println("Não permitido! Crie uma conta!");
+                                }
+                                break;
                         }
-                        break;
+
                     case 4:
                         System.out.println("Extrato!");
                         if (conta != null) {
