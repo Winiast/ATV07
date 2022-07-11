@@ -389,14 +389,37 @@ public class App {
                         }
 
                     case 4:
+                        System.out.println("Escolha o tipo de conta que deseja tirar o extrato:");
+                        System.out.println(menuEscolhaConta());
+                        opcaoConta = scan.nextInt();
                         System.out.println("Extrato!");
-                        if (conta != null) {
-                            System.out.println(conta);
-                        } else {
-                            System.out.println("Não existe conta criada!");
+                        switch (opcaoConta) {
+                            case 1:
+                                if (conta != null) {
+                                    System.out.println(conta);
+                                } else {
+                                    System.out.println("Não existe conta criada!");
+                                }
+
+                                break;
+                            case 2:
+                                if (contaCorrenteEspecial != null) {
+                                    System.out.println(conta);
+                                } else {
+                                    System.out.println("Não existe conta criada!");
+                                }
+
+                                break;
+                            case 3:
+                                if (contaPoupanca != null) {
+                                    System.out.println(conta);
+                                } else {
+                                    System.out.println("Não existe conta criada!");
+                                }
+
+                                break;
                         }
 
-                        break;
                 }
             } else if (opcao == 3) {
                 System.out.println(menuBanco());
